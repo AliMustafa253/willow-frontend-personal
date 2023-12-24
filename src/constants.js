@@ -1,5 +1,5 @@
 // export const BASE_URL = "https://willow-408319.uw.r.appspot.com/api";
-export const BASE_URL = "http://178.128.128.139:5000/api";
+export const BASE_URL = "http://167.172.8.150:5000/api";
 export const BASE_STORAGE_BUCKET_URL =
   "https://storage.cloud.google.com/willow-conversation-assets";
 export const END_USER = "end_user";
