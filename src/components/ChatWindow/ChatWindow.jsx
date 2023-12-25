@@ -40,7 +40,8 @@ const ChatWindow = ({ convoHistory }) => {
             Hi, I'm Willow. I'm here for you. What's on your mind today?
           </h2>
           <p className="intro-info">
-            You can input images via typing the url or uploading.
+            You can input images via typing the url or uploading. You can also
+            ask for a youtube link associated with your emotions
           </p>
         </div>
       ) : (
