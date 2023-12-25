@@ -29,18 +29,54 @@ const ImageBubble = ({ user, content, className, key }) => {
   );
 };
 
-const addLineBreaks = (text) => {
+const AudioBubble = ({ src }) => {};
+
+const addLineBreaksAndLinks = (text) => {
+  // Regular expression to match YouTube video URLs
+  const youtubeRegex =
+    /(https?:\/\/)?(www\.)?(youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+
+  // Split the text into sentences
   const sentences = text.split(/(?<=[.!?])\s+/);
 
-  return sentences.map((sentence, index) => <p key={index}>{sentence}</p>);
-};
+  return sentences.map((sentence, index) => (
+    <p key={index}>
+      {sentence.split(/\s+/).map((word, wordIndex) => {
+        // Check if the word is a YouTube link
+        const match = word.match(youtubeRegex);
 
-const AudioBubble = ({ src }) => {};
+        if (match) {
+          // If it's a YouTube link, create a clickable hyperlink
+          const youtubeUrl = match[0];
+          return (
+            <a
+              key={wordIndex}
+              href={youtubeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {word}
+            </a>
+          );
+        } else {
+          // Otherwise, render the word as-is
+          return (
+            <React.Fragment key={wordIndex}>
+              {word}
+              {wordIndex < sentence.split(/\s+/).length - 1 && " "}{" "}
+              {/* Add space between words */}
+            </React.Fragment>
+          );
+        }
+      })}
+    </p>
+  ));
+};
 
 const TextBubble = ({ content, user, className, key }) => {
   return (
-    <div key={key} className={` text_bubble ${className}`}>
-      {addLineBreaks(content)}
+    <div key={key} className={`text_bubble ${className}`}>
+      {addLineBreaksAndLinks(content)}
     </div>
   );
 };
